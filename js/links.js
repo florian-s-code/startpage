@@ -55,20 +55,20 @@
         categoryHtml += '<span class="clearfix"/>';
         categoryHtml += '</div>';
         categoryHtml += '<div class="colorpicker-wrapper">' + ColorPickerGenerator.getColorPickerCode() + '</div>';
-        categoryHtml += '<p class="title" style="background-color:' + category.color + ';border-color:' + ColorUtil.changeLuminance(category.color, 0.3) + '">' + category.name + '</p>';
+        categoryHtml += '<h3 class="title" style="background-color:' + category.color + ';border-color:' + ColorUtil.changeLuminance(category.color, 0.3) + '">' + category.name + '</h3>';
         categoryHtml += '</div>';
-        categoryHtml += '<div class="entries">';
+        categoryHtml += '<ul class="entries">';
         entryIndex = 0;
         _ref1 = category.entries;
         for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
           entry = _ref1[_j];
-          categoryHtml += '<p class="entry" data-entry-index="' + entryIndex++ + '">';
-          categoryHtml += '<a class="entry-title" href="' + entry.href + '">' + entry.title + '</a>';
+          categoryHtml += '<li class="entry" data-entry-index="' + entryIndex++ + '" >';
+          categoryHtml += '<a class="entry-title" target="_blank" href="' + entry.href + '" style=" background-image:url('+Util.getFaviconURL(entry.href)+')">' + entry.title + '</a>';
           categoryHtml += '<img class="entry-edit-btn" src="icons/edit.svg">';
           categoryHtml += '<img class="entry-remove-btn" src="icons/remove.svg">';
-          categoryHtml += '</p>';
+          categoryHtml += '</li>';
         }
-        categoryHtml += '</div>';
+        categoryHtml += '</ul>';
         categoryHtml += '</div>';
         categoryHtml += '</div>';
         categoriesHtml += categoryHtml;
