@@ -39,6 +39,7 @@ this.LinkEditor = (function() {
         title: modalForm["entry_title"].value,
         href: modalForm["entry_href"].value
       };
+      Links.saveToLocalStorage();
       return Links.render();
     });
     $(document).on('click', '.colorpicker-color', function() {
@@ -86,6 +87,7 @@ this.LinkEditor = (function() {
   LinkEditor.updateSavedCategory = function(category) {
     var saved = Links.contents[LinkEditor.getCategoryID(category)];
     saved.name = category.querySelector('.title').innerText;
+    Links.saveToLocalStorage();
     return saved.name;
   };
 
@@ -127,6 +129,7 @@ this.LinkEditor = (function() {
 
   LinkEditor.removeEntry = function(entry) {
     Links.contents[LinkEditor.getCategoryID(entry)].entries.splice(LinkEditor.getEntryID(entry), 1);
+    Links.saveToLocalStorage();
     return Links.render();
   };
 
