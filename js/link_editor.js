@@ -17,7 +17,7 @@ this.LinkEditor = (function() {
       return LinkEditor.removeCategory(LinkEditor.getCategoryID($(this)));
     });
     $(document).on('click', '.category-edit-btn', function() {
-      return LinkEditor.toggleEditingCategory(LinkEditor.getContainingCategory($(this)));
+      return LinkEditor.toggleEditingCategory(LinkEditor.getContainingCategory(this));
     });
     $(document).on('click', '.category-add-item-btn', function() {
       var catID;
@@ -63,31 +63,30 @@ this.LinkEditor = (function() {
   };
 
   LinkEditor.toggleEditingCategory = function(category) {
-    if (!category.hasClass('editing')) {
-      category.addClass('editing');
+    if (!category.classList.contains('editing')) {
+      category.classList.add('editing');
       return LinkEditor.editCategory(category);
     } else {
-      category.removeClass('editing');
+      category.classList.remove('editing');
       return LinkEditor.stopEditCategory(category);
     }
   };
 
   LinkEditor.editCategory = function(category) {
     var title, titleElement;
-    titleElement = category.find('.title');
-    title = titleElement.html();
-    return titleElement.html('<input class="category-title-field" type="text" value="' + title + '">');
+    titleElement = category.querySelector('.title');
+    titleElement.contentEditable = "true";
   };
 
   LinkEditor.stopEditCategory = function(category) {
-    category.find('.title').html(category.find('.category-title-field').val());
+    category.querySelector(".title").contentEditable = "false";
     return LinkEditor.updateSavedCategory(category);
   };
 
   LinkEditor.updateSavedCategory = function(category) {
-    var saved;
-    saved = Links.contents[LinkEditor.getCategoryID(category)];
-    return saved.name = category.find('.title').html();
+    var saved = Links.contents[LinkEditor.getCategoryID(category)];
+    saved.name = category.querySelector('.title').innerText;
+    return saved.name;
   };
 
   LinkEditor.removeCategory = function(id) {
@@ -136,6 +135,11 @@ this.LinkEditor = (function() {
   };
 
   LinkEditor.getCategoryID = function(element) {
+    if(element.dataset){
+      //dealing with real HTMLElement
+      return parseInt(element.dataset.categoryIndex)
+    }
+    //fallback in case there are still calls with jquery objects
     return parseInt(LinkEditor.getContainingCategory(element).attr('data-category-index'));
   };
 
@@ -152,8 +156,8 @@ this.LinkEditor = (function() {
   };
 
   LinkEditor.saveCurrentlyEditing = function() {
-    return $('.category.editing').each(function() {
-      return LinkEditor.stopEditCategory($(this));
+    document.querySelectorAll('.category.editing').forEach(function(cat) {
+      return LinkEditor.stopEditCategory(cat);
     });
   };
 
