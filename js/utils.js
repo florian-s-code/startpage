@@ -26,4 +26,20 @@
 
   })();
 
+  this.Util = (function(){
+  	function Util() {}
+
+  	Util.getURLHost = function(url) {
+  		var parser = document.createElement("a");
+  		parser.href = url;
+  		return parser.protocol+"//"+parser.hostname;
+  	}
+
+  	Util.getFaviconURL = function(url) {
+  		return Util.getURLHost(url)+"/favicon.ico";
+  	}
+
+  	return Util
+  })();
+
 }).call(this);
