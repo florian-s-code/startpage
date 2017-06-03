@@ -32,11 +32,12 @@ this.LinkEditor = (function() {
     });
     $(document).on('confirmation', '.remodal', function() {
       var categoryID, entryID;
-      entryID = parseInt($('#entry-editor-entry-id').val());
-      categoryID = parseInt($('#entry-editor-category-id').val());
+      var modalForm = document.querySelector("#entry-edit-form");
+      entryID = parseInt(modalForm["entry_id"].value);
+      categoryID = parseInt(modalForm["category_id"].value);
       Links.contents[categoryID].entries[entryID] = {
-        title: $('#entry-edit-title').val(),
-        href: $('#entry-edit-href').val()
+        title: modalForm["entry_title"].value,
+        href: modalForm["entry_href"].value
       };
       return Links.render();
     });
