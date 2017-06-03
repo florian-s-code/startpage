@@ -76,5 +76,15 @@
 	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript" src="js/links.js"></script>
 	<script type="text/javascript" src="js/link_editor.js"></script>
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function(){
+			var searchBar = document.querySelector("form");
+			searchBar.onsubmit = function(e) {
+				var query = searchBar["duckduckgo-query"].value;
+				window.location = "https://duckduckgo.com/?q="+query;
+				e.preventDefault();
+			}
+		}, true);
+	</script>
 </body>
 </html>
