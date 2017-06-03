@@ -93,6 +93,8 @@ this.LinkEditor = (function() {
 
   LinkEditor.removeCategory = function(id) {
     LinkEditor.saveCurrentlyEditing();
+    if(!confirm("Supprimer la catégorie "+Links.contents[id].name+" ?"))
+      return;
     Links.contents.splice(id, 1);
     return LinkEditor.updateLinks();
   };
@@ -128,6 +130,9 @@ this.LinkEditor = (function() {
   };
 
   LinkEditor.removeEntry = function(entry) {
+    var title = Links.contents[LinkEditor.getCategoryID(entry)].entries[LinkEditor.getEntryID(entry)]["title"]
+    if(!confirm("Supprimer le lien "+title+" ?"))
+      return;
     Links.contents[LinkEditor.getCategoryID(entry)].entries.splice(LinkEditor.getEntryID(entry), 1);
     Links.saveToLocalStorage();
     return Links.render();
