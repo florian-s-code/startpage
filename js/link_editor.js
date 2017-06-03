@@ -112,7 +112,7 @@ this.LinkEditor = (function() {
     entryID = LinkEditor.getEntryID(entry);
     $('#entry-editor-entry-id').val(entryID);
     $('#entry-editor-category-id').val(LinkEditor.getCategoryID(entry));
-    modelEntry = Links.contents[LinkEditor.getCategoryID(entry)].entries[LinkEditor.getEntryID(entry)];
+    modelEntry = Links.contents[LinkEditor.getCategoryID(entry)].entries[entryID];
     $('#entry-edit-title').val(modelEntry.title);
     $('#entry-edit-href').val(modelEntry.href);
     return location.hash = "edit-entry";
