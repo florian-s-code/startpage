@@ -15,15 +15,13 @@
 			src: url("fonts/FiraSans-Light.otf/");
 		}
 	</style>
-
 </head>
 <body>
-	<div class="remodal-bg">
-		<div class="background">
-			<img id="background-image" src="https://source.unsplash.com/category/nature/1920x1080/?*">
-			<div class="background-darkener"></div>
-		</div>
+	<form id="duckduckgobar" action="">
+		<input type="text" placeholder="Rechercher" name="duckduckgo-query" id="duckduckgo-query-field" autofocus>
+	</form>
 
+	<div class="remodal-bg">
 		<div class="editbar" id="editbar">
 			<img src="icons/raw_data.svg" id="edit-raw-data">
 			<img src="icons/add.svg" id="edit-add">
@@ -31,18 +29,10 @@
 			<span class="clearfix"></span>
 		</div>
 
-		<div class="content">
-			<div class="googlebar-container">
-				<div class="googlebar">
-					<input type="text" placeholder="Google" name="google-query" id="google-query-field" autofocus>
-					</div>
-				</div>
-			</div>
+	<section class="links-wrapper">
+		<div class="links" id="link-view"><!--This is populated with js--></div>
+	</section>
 
-			<div class="links-wrapper">
-				<div class="links" id="link-view"><!--This is populated with js--></div>
-			</div>
-		</div>
 	</div>
 	<div class="remodal" data-remodal-id="edit-entry">
 		<button data-remodal-action="close" class="remodal-close"></button>
