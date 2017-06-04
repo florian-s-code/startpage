@@ -3,7 +3,42 @@ this.LinkEditor = (function() {
 
   LinkEditor.editing = false;
 
+  var _actionFor = {};
+  _actionFor['category-remove-btn'] = function() {
+    return LinkEditor.removeCategory(LinkEditor.getCategoryID($(this)));
+  };
+  _actionFor['category-edit-btn'] = function() {
+    return LinkEditor.toggleEditingCategory(LinkEditor.getContainingCategory(this));
+  };
+  _actionFor['category-add-item-btn'] = function() {
+    var catID;
+    catID = LinkEditor.getCategoryID($(this));
+    return LinkEditor.addEntry(catID);
+  };
+  _actionFor['entry-edit-btn'] = function() {
+    return LinkEditor.editEntry($(this));
+  };
+  _actionFor['entry-remove-btn'] = function() {
+    return LinkEditor.removeEntry($(this));
+  };
+  _actionFor['colorpicker-color'] = function() {
+    return LinkEditor.updateCategoryColor($(this));
+  };
+
+  function executeAction(event, element, className) {
+    if(_actionFor.hasOwnProperty(className)){
+      event.stopPropagation();
+      return _actionFor[className].call(element);
+    }
+  };
+
   LinkEditor.registerEvents = function() {
+    //event delegation mechanism
+    document.querySelector(".links-wrapper").addEventListener('click', function(ev) {
+      ev.target.classList.forEach( function(name){
+        executeAction(ev, ev.target, name);
+      });
+    });
     document.querySelector('#edit-editmode').addEventListener('click', function(){
       return LinkEditor.toggleEditMode();
     }, true);
@@ -13,23 +48,6 @@ this.LinkEditor = (function() {
     document.querySelector('#edit-raw-data').addEventListener('click', function(){
       return LinkEditor.openRawEditor();
     }, true);
-    $(document).on('click', '.category-remove-btn', function() {
-      return LinkEditor.removeCategory(LinkEditor.getCategoryID($(this)));
-    });
-    $(document).on('click', '.category-edit-btn', function() {
-      return LinkEditor.toggleEditingCategory(LinkEditor.getContainingCategory(this));
-    });
-    $(document).on('click', '.category-add-item-btn', function() {
-      var catID;
-      catID = LinkEditor.getCategoryID($(this));
-      return LinkEditor.addEntry(catID);
-    });
-    $(document).on('click', '.entry-edit-btn', function() {
-      return LinkEditor.editEntry($(this));
-    });
-    $(document).on('click', '.entry-remove-btn', function() {
-      return LinkEditor.removeEntry($(this));
-    });
     document.querySelector('.remodal[data-remodal-id="edit-entry"] .remodal-confirm').addEventListener('click',
       function() {
         var categoryID, entryID;
@@ -44,9 +62,6 @@ this.LinkEditor = (function() {
         return Links.render();
       }
     );
-    $(document).on('click', '.colorpicker-color', function() {
-      return LinkEditor.updateCategoryColor($(this));
-    });
     $('#raw-data-cancel').click(function() {
       return LinkEditor.closeRawEditor();
     });
