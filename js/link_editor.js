@@ -5,14 +5,14 @@ this.LinkEditor = (function() {
 
   var _actionFor = {};
   _actionFor['category-remove-btn'] = function() {
-    return LinkEditor.removeCategory(LinkEditor.getCategoryID($(this)));
+    return LinkEditor.removeCategory(LinkEditor.getCategoryID(this));
   };
   _actionFor['category-edit-btn'] = function() {
     return LinkEditor.toggleEditingCategory(LinkEditor.getContainingCategory(this));
   };
   _actionFor['category-add-item-btn'] = function() {
     var catID;
-    catID = LinkEditor.getCategoryID($(this));
+    catID = LinkEditor.getCategoryID(this);
     return LinkEditor.addEntry(catID);
   };
   _actionFor['entry-edit-btn'] = function() {
@@ -22,7 +22,7 @@ this.LinkEditor = (function() {
     return LinkEditor.removeEntry($(this));
   };
   _actionFor['colorpicker-color'] = function() {
-    return LinkEditor.updateCategoryColor($(this));
+    return LinkEditor.updateCategoryColor(this);
   };
 
   function executeAction(event, element, className) {
@@ -160,12 +160,7 @@ this.LinkEditor = (function() {
   };
 
   LinkEditor.getCategoryID = function(element) {
-    if(element.dataset){
-      //dealing with real HTMLElement
-      return parseInt(element.dataset.categoryIndex)
-    }
-    //fallback in case there are still calls with jquery objects
-    return parseInt(LinkEditor.getContainingCategory(element).attr('data-category-index'));
+    return parseInt(LinkEditor.getContainingCategory(element).dataset.categoryIndex);
   };
 
   LinkEditor.getContainingCategory = function(element) {
