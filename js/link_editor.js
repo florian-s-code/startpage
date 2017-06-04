@@ -62,12 +62,12 @@ this.LinkEditor = (function() {
         return Links.render();
       }
     );
-    $('#raw-data-cancel').click(function() {
+    document.querySelector('#raw-data-cancel').addEventListener('click', function(){
       return LinkEditor.closeRawEditor();
-    });
-    return $('#raw-data-save').click(function() {
+    }, true);
+    document.querySelector('#raw-data-save').addEventListener('click', function(){
       return LinkEditor.saveRawEditor();
-    });
+    }, true);
   };
 
   LinkEditor.addEmptyCategory = function() {
