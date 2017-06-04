@@ -4,15 +4,15 @@ this.LinkEditor = (function() {
   LinkEditor.editing = false;
 
   LinkEditor.registerEvents = function() {
-    $('#edit-editmode').click(function() {
+    document.querySelector('#edit-editmode').addEventListener('click', function(){
       return LinkEditor.toggleEditMode();
-    });
-    $('#edit-add').click(function() {
+    }, true);
+    document.querySelector('#edit-add').addEventListener('click', function(){
       return LinkEditor.addEmptyCategory();
-    });
-    $('#edit-raw-data').click(function() {
+    }, true);
+    document.querySelector('#edit-raw-data').addEventListener('click', function(){
       return LinkEditor.openRawEditor();
-    });
+    }, true);
     $(document).on('click', '.category-remove-btn', function() {
       return LinkEditor.removeCategory(LinkEditor.getCategoryID($(this)));
     });
@@ -30,18 +30,20 @@ this.LinkEditor = (function() {
     $(document).on('click', '.entry-remove-btn', function() {
       return LinkEditor.removeEntry($(this));
     });
-    $(document).on('confirmation', '.remodal', function() {
-      var categoryID, entryID;
-      var modalForm = document.querySelector("#entry-edit-form");
-      entryID = parseInt(modalForm["entry_id"].value);
-      categoryID = parseInt(modalForm["category_id"].value);
-      Links.contents[categoryID].entries[entryID] = {
-        title: modalForm["entry_title"].value,
-        href: modalForm["entry_href"].value
-      };
-      Links.saveToLocalStorage();
-      return Links.render();
-    });
+    document.querySelector('.remodal[data-remodal-id="edit-entry"] .remodal-confirm').addEventListener('click',
+      function() {
+        var categoryID, entryID;
+        var modalForm = document.querySelector("#entry-edit-form");
+        entryID = parseInt(modalForm["entry_id"].value);
+        categoryID = parseInt(modalForm["category_id"].value);
+        Links.contents[categoryID].entries[entryID] = {
+          title: modalForm["entry_title"].value,
+          href: modalForm["entry_href"].value
+        };
+        Links.saveToLocalStorage();
+        return Links.render();
+      }
+    );
     $(document).on('click', '.colorpicker-color', function() {
       return LinkEditor.updateCategoryColor($(this));
     });
