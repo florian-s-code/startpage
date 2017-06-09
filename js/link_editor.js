@@ -184,20 +184,18 @@ this.LinkEditor = (function() {
 
   LinkEditor.openRawEditor = function() {
     LinkEditor.saveCurrentlyEditing();
-    var editor = document.querySelector('#raw-data-editor');
-    var editorBox = document.querySelector('#raw-data-box');
-    editorBox.value = JSON.stringify(Links.contents, null, "    ");
-    return editor.classList.add('editing');
+    document.querySelector('#raw-data-box').value = JSON.stringify(Links.contents, null, "    ");
+    return document.querySelector('#raw-data-editor').classList.add('editing');
   };
 
   LinkEditor.closeRawEditor = function() {
-    return editor.classList.remove('editing');
+    return document.querySelector('#raw-data-editor').classList.remove('editing');
   };
 
   LinkEditor.saveRawEditor = function() {
     var code, data, e;
     try {
-      code = editorBox.value;
+      code = document.querySelector('#raw-data-box').value;
       if (!code || /^\s*$/.test(code)) {
         Links.contents = [];
       } else {
@@ -212,6 +210,7 @@ this.LinkEditor = (function() {
       return LinkEditor.closeRawEditor();
     } catch (_error) {
       e = _error;
+      console.log(e)
       return alert('Please check the format of the data you entered.');
     }
   };
