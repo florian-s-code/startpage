@@ -119,7 +119,7 @@ this.LinkEditor = (function() {
   LinkEditor.updateCategoryColor = function(clickedColorPickerColor) {
     var catID;
     catID = LinkEditor.getCategoryID(clickedColorPickerColor);
-    Links.contents[catID].color = clickedColorPickerColor.attr('data-color');
+    Links.contents[catID].color = clickedColorPickerColor.dataset.color;
     LinkEditor.saveCurrentlyEditing();
     return Links.render();
   };
