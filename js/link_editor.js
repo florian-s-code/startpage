@@ -217,11 +217,13 @@ this.LinkEditor = (function() {
   LinkEditor.toggleEditMode = function() {
     LinkEditor.editing = !LinkEditor.editing;
     if (LinkEditor.editing) {
-      $('#editbar').addClass('editing');
-      return $('#link-view').addClass('editing');
+      document.querySelector('#editbar').classList.add('editing');
+      return document.querySelector('#link-view').classList.add('editing');
     } else {
       LinkEditor.saveCurrentlyEditing();
-      $('.editing').removeClass('editing');
+      document.querySelectorAll('.editing').forEach( function(el) {
+        el.classList.remove('editing');
+      });
       return Links.saveToLocalStorage();
     }
   };
