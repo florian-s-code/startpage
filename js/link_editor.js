@@ -210,6 +210,7 @@ this.LinkEditor = (function() {
       return LinkEditor.closeRawEditor();
     } catch (_error) {
       e = _error;
+      console.log(e)
       return alert('Please check the format of the data you entered.');
     }
   };
