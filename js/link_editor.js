@@ -16,10 +16,10 @@ this.LinkEditor = (function() {
     return LinkEditor.addEntry(catID);
   };
   _actionFor['entry-edit-btn'] = function() {
-    return LinkEditor.editEntry($(this));
+    return LinkEditor.editEntry(this);
   };
   _actionFor['entry-remove-btn'] = function() {
-    return LinkEditor.removeEntry($(this));
+    return LinkEditor.removeEntry(this);
   };
   _actionFor['colorpicker-color'] = function() {
     return LinkEditor.updateCategoryColor(this);
@@ -127,11 +127,12 @@ this.LinkEditor = (function() {
   LinkEditor.editEntry = function(entry) {
     var entryID, modelEntry;
     entryID = LinkEditor.getEntryID(entry);
-    $('#entry-editor-entry-id').val(entryID);
-    $('#entry-editor-category-id').val(LinkEditor.getCategoryID(entry));
+    var modalForm = document.querySelector("#entry-edit-form");
+    modalForm["entry_id"].value = entryID;
+    modalForm["category_id"].value = LinkEditor.getCategoryID(entry);
     modelEntry = Links.contents[LinkEditor.getCategoryID(entry)].entries[entryID];
-    $('#entry-edit-title').val(modelEntry.title);
-    $('#entry-edit-href').val(modelEntry.href);
+    modalForm["entry_title"].value = modelEntry.title;
+    modalForm["entry_href"].value = modelEntry.href;
     return location.hash = "edit-entry";
   };
 
@@ -168,7 +169,7 @@ this.LinkEditor = (function() {
   };
 
   LinkEditor.getEntryID = function(element) {
-    return parseInt(LinkEditor.getContainingEntry(element).attr('data-entry-index'));
+    return parseInt(LinkEditor.getContainingEntry(element).dataset.entryIndex);
   };
 
   LinkEditor.getContainingEntry = function(element) {
