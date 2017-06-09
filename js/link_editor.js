@@ -184,18 +184,20 @@ this.LinkEditor = (function() {
 
   LinkEditor.openRawEditor = function() {
     LinkEditor.saveCurrentlyEditing();
-    $('#raw-data-box').val(JSON.stringify(Links.contents, null, "    "));
-    return $('#raw-data-editor').addClass('editing');
+    var editor = document.querySelector('#raw-data-editor');
+    var editorBox = document.querySelector('#raw-data-box');
+    editorBox.value = JSON.stringify(Links.contents, null, "    ");
+    return editor.classList.add('editing');
   };
 
   LinkEditor.closeRawEditor = function() {
-    return $('#raw-data-editor').removeClass('editing');
+    return editor.classList.remove('editing');
   };
 
   LinkEditor.saveRawEditor = function() {
     var code, data, e;
     try {
-      code = $('#raw-data-box').val();
+      code = editorBox.value;
       if (!code || /^\s*$/.test(code)) {
         Links.contents = [];
       } else {
