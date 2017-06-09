@@ -234,6 +234,6 @@ this.LinkEditor = (function() {
 
 })();
 
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
   return LinkEditor.registerEvents();
-});
+}, false);
